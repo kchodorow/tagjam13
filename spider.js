@@ -5,7 +5,8 @@ goog.require('lime.Sprite');
 tagjam13.Spider = function() {
     goog.base(this);
 
-    this.setSize(LEN, LEN).setFill('#000').setPosition(WIDTH/2, 100);
+    this.setSize(LEN, LEN).setFill('#000')
+        .setPosition(WIDTH/2, tagjam13.Scene.BOTTOM_OF_SILL);
     this.intention_ = this.STOP;
 };
 
