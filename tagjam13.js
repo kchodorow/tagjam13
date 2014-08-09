@@ -12,6 +12,8 @@ goog.require('lime.animation.MoveTo');
 
 goog.require('lib.Keyboard');
 
+goog.require('tagjam13.Spider');
+
 var LEN = 44;
 var WIDTH = 1024;
 var HEIGHT = 768;
@@ -22,22 +24,13 @@ tagjam13.start = function(){
     var scene = new lime.Scene();
     var keyboard = new lib.Keyboard(scene);
 
-    var spider = new lime.Sprite().setSize(LEN, LEN).setFill('#000')
-            .setPosition(WIDTH/2, 100);
-    spider.setIntention = function(direction) {
-        spider.intention_ = direction;
-    };
-    spider.getIntention = function() {
-        return spider.intention_;
-    };
-    spider.intention_ = spider.STOP = new goog.math.Vec2(0, 0);
-    spider.MAX_SPEED = 1;
+    var spider = new tagjam13.Spider();
+    keyboard.bindWasd(function(dir) {
+        spider.setIntention(dir);
+    });
+
     scene.appendChild(spider);
     scene.getSpider = function() { return spider; };
-
-    keyboard.bindWasd(function(direction, e) {
-        spider.setIntention(direction);
-    });
 
     lime.scheduleManager.schedule(tick, scene);
 
