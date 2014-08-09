@@ -4,12 +4,12 @@ goog.require('lime.Director');
 
 goog.require('lib.Keyboard');
 
-goog.require('tagjam13.Scene');
-goog.require('tagjam13.Spider');
-
 var LEN = 44;
 var WIDTH = 1024;
 var HEIGHT = 768;
+
+goog.require('tagjam13.Scene');
+goog.require('tagjam13.Spider');
 
 tagjam13.start = function(){
 
@@ -21,6 +21,7 @@ tagjam13.start = function(){
     keyboard.bindWasd(goog.bind(spider.setIntention, spider));
     keyboard.bind(goog.events.KeyCodes.P, goog.bind(scene.pause, scene));
     keyboard.bind(goog.events.KeyCodes.B, goog.bind(scene.createBug, scene));
+    keyboard.bind(goog.events.KeyCodes.SPACE, goog.bind(scene.useItem, scene));
 
     scene.appendChild(spider);
     scene.getSpider = function() { return spider; };

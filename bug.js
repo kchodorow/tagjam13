@@ -18,7 +18,7 @@ goog.inherits(tagjam13.Bug, lime.Sprite);
 
 tagjam13.Bug.WEB_HEIGHT = 400;
 
-tagjam13.Bug.BOUNCE = 30;
+tagjam13.Bug.BOUNCE = 25;
 tagjam13.Bug.SPEED = .1;
 tagjam13.Bug.PERIOD = (2 * Math.PI / 50); // 50px wide
 
