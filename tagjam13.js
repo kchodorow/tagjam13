@@ -14,17 +14,16 @@ var HEIGHT = 768;
 tagjam13.start = function(){
 
     var director = new lime.Director(document.body, 1024, 768);
-    var scene = new tagjam13.Scene();
-    var keyboard = new lib.Keyboard(scene);
-
     var spider = new tagjam13.Spider();
-    keyboard.bindWasd(function(dir) {
-        spider.setIntention(dir);
-    });
+    var scene = new tagjam13.Scene(spider);
+
+    var keyboard = new lib.Keyboard(scene);
+    keyboard.bindWasd(goog.bind(spider.setIntention, spider));
+    keyboard.bind(goog.events.KeyCodes.P, goog.bind(scene.pause, scene));
+    keyboard.bind(goog.events.KeyCodes.B, goog.bind(scene.createBug, scene));
 
     scene.appendChild(spider);
     scene.getSpider = function() { return spider; };
-    scene.drops_ = [];
 
     lime.scheduleManager.schedule(scene.tick, scene);
 

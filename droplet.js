@@ -9,13 +9,14 @@ tagjam13.Droplet = function() {
     var dropSize = goog.math.randomInt(20) + tagjam13.Droplet.MIN_DROP_SIZE;
     this.setSize(dropSize, dropSize).setFill('#008').setPosition(dropPos, 0);
 
+    this.time_ = 0;
     this.falling_ = false;
     this.done_ = false;
 };
 
 goog.inherits(tagjam13.Droplet, lime.Sprite);
 
-tagjam13.Droplet.GRAVITY = .01; // px/s^2
+tagjam13.Droplet.GRAVITY = .0001; // px/s^2
 
 tagjam13.Droplet.MIN_DROP_SIZE = 10;
 tagjam13.Droplet.THRESHOLD = LEN;
@@ -39,9 +40,12 @@ tagjam13.Droplet.prototype.grow = function(delta) {
 };
 
 tagjam13.Droplet.prototype.fall = function(delta) {
+    // Time starts when it starts falling.
+    this.time_ += delta;
+
     var pos = this.getPosition();
     var newY = Math.min(
-        pos.y + tagjam13.Droplet.GRAVITY * delta * delta,
+        pos.y + tagjam13.Droplet.GRAVITY * this.time_ * this.time_,
         tagjam13.Scene.BOTTOM_OF_SILL);
     this.setPosition(pos.x, newY);
     if (newY == tagjam13.Scene.BOTTOM_OF_SILL) {
