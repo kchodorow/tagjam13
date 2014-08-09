@@ -7,53 +7,40 @@ tagjam13.Droplet = function() {
 
     var dropPos = goog.math.randomInt(WIDTH);
     var dropSize = goog.math.randomInt(20) + tagjam13.Droplet.MIN_DROP_SIZE;
-    this.setSize(dropSize, dropSize).setFill('#008').setPosition(dropPos, 0);
+    this.setSize(dropSize, dropSize).setFill('#008')
+        .setPosition(dropPos, tagjam13.Scene.TOP_OF_SILL);
 
-    this.time_ = 0;
     this.falling_ = false;
-    this.done_ = false;
+    this.dropPoint_ = null;
 };
 
 goog.inherits(tagjam13.Droplet, lime.Sprite);
 
-tagjam13.Droplet.GRAVITY = .0001; // px/s^2
-
 tagjam13.Droplet.MIN_DROP_SIZE = 10;
-tagjam13.Droplet.THRESHOLD = LEN;
 tagjam13.Droplet.SIZE_DELTA = 3;
 tagjam13.Droplet.SIZE_SCALER = .1;
+tagjam13.Droplet.SPEED = .1;
 
+/**
+ * @returns boolean true if droplet is finished.
+ */
 tagjam13.Droplet.prototype.tick = function(delta) {
-    if (this.falling_) {
-        this.fall(delta);
-    } else {
-        this.grow(delta);
+    // Hack to get isTouching function.
+    var scene = this.getParent();
+    // TODO: use stricter isTouching function?
+    if (scene.isTouching_(this, this.dropPoint_)) {
+        this.dropPoint_.addDrop(this);
+        return true;
     }
-};
-
-tagjam13.Droplet.prototype.grow = function(delta) {
-    var size = this.getSize();
-    size.width = size.height = size.width +
-        goog.math.randomInt(tagjam13.Droplet.SIZE_DELTA) *
-        tagjam13.Droplet.SIZE_SCALER * delta;
-    this.falling_ = size.width > tagjam13.Droplet.THRESHOLD;
-};
-
-tagjam13.Droplet.prototype.fall = function(delta) {
-    // Time starts when it starts falling.
-    this.time_ += delta;
-
     var pos = this.getPosition();
-    var newY = Math.min(
-        pos.y + tagjam13.Droplet.GRAVITY * this.time_ * this.time_,
-        tagjam13.Scene.BOTTOM_OF_SILL);
-    this.setPosition(pos.x, newY);
-    if (newY == tagjam13.Scene.BOTTOM_OF_SILL) {
-        this.getParent().removeChild(this);
-        this.done_ = true;
-    }
+    var goal = this.dropPoint_.getPosition();
+    var direction = (goal.x - pos.x)/Math.abs(goal.x - pos.x); // +/-1
+    pos.x += direction * tagjam13.Droplet.SPEED * delta;
+    this.setPosition(pos.x, pos.y);
+    // TODO: roll
+    return false;
 };
 
-tagjam13.Droplet.prototype.isDone = function() {
-    return this.done_;
+tagjam13.Droplet.prototype.setDropPoint = function(dropPoint) {
+    this.dropPoint_ = dropPoint;
 };
