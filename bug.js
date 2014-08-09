@@ -11,7 +11,6 @@ tagjam13.Bug = function() {
 
     this.flying_ = true;
     this.captureAt_ = goog.math.randomInt(WIDTH);
-    this.done_ = false;
 };
 
 goog.inherits(tagjam13.Bug, lime.Sprite);
@@ -22,8 +21,8 @@ tagjam13.Bug.BOUNCE = 25;
 tagjam13.Bug.SPEED = .1;
 tagjam13.Bug.PERIOD = (2 * Math.PI / 50); // 50px wide
 
-tagjam13.Bug.prototype.isDone = function() {
-    return this.done_;
+tagjam13.Bug.prototype.isTrapped = function() {
+    return !this.flying_;
 };
 
 tagjam13.Bug.prototype.tick = function(delta) {

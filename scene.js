@@ -30,6 +30,7 @@ tagjam13.Scene.TOP_OF_SILL = 30;
 tagjam13.Scene.BOTTOM_OF_SILL = 300;
 tagjam13.Scene.BOTTOM_OF_WINDOW = HEIGHT - 30;
 tagjam13.Scene.BUCKET_SIZE = 20;
+tagjam13.Scene.TOUCHING = LEN/2;
 
 tagjam13.Scene.prototype.pause = function() {
     this.paused_ = !this.paused_;
@@ -47,8 +48,8 @@ tagjam13.Scene.prototype.useItem = function() {
         this.bucket_ = bucket;
         this.appendChild(bucket);
         bucket.setPosition(this.spider_.getPosition().clone());
-    } else if (this.bucket_ != null && goog.math.Coordinate.distance(
-        this.bucket_.getPosition(), this.spider_.getPosition()) < LEN/2) {
+    } else if (this.bucket_ != null &&
+               this.isTouching_(this.bucket_, this.spider_)) {
         this.removeChild(this.bucket_);
         this.spider_.setItem(this.bucket_);
         this.bucket_ = null;
@@ -66,6 +67,13 @@ tagjam13.Scene.prototype.tick = function(delta) {
     // TODO: prevent illegal movement.
     var pos = this.adjustPos_(this.spider_.getNewPosition(delta));
     this.spider_.setPosition(pos);
+    var nearbyBug = this.getBugNearSpider_();
+    if (nearbyBug != null) {
+        this.spider_.eatBug(nearbyBug);
+        goog.array.remove(this.bugs_, nearbyBug);
+        // TODO: have bug drop treasure.
+    }
+
     this.drip_(delta);
     this.bugify_(delta);
 };
@@ -112,8 +120,21 @@ tagjam13.Scene.prototype.bugify_ = function(delta) {
     for (var i = 0; i < this.bugs_.length; ++i) {
         var bug = this.bugs_[i];
         bug.tick(delta);
-        if (bug.isDone()) {
-            goog.array.remove(this.bugs_, bug);
+    }
+};
+
+tagjam13.Scene.prototype.isTouching_ = function(thing1, thing2) {
+    return goog.math.Coordinate.distance(
+        thing1.getPosition(), thing2.getPosition()) <
+        tagjam13.Scene.TOUCHING;
+};
+
+tagjam13.Scene.prototype.getBugNearSpider_ = function() {
+    for (var i = 0; i < this.bugs_.length; ++i) {
+        var bug = this.bugs_[i];
+        if (bug.isTrapped() && this.isTouching_(bug, this.spider_)) {
+            return bug;
         }
     }
+    return null;
 };
