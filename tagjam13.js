@@ -13,7 +13,8 @@ goog.require('tagjam13.Spider');
 
 tagjam13.start = function(){
 
-    var director = new lime.Director(document.body, 1024, 768);
+    var director = new lime.Director(
+        document.getElementById('game'), WIDTH, HEIGHT);
     var spider = new tagjam13.Spider();
     var scene = new tagjam13.Scene(spider);
 

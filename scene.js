@@ -28,6 +28,9 @@ tagjam13.Scene = function(spider) {
         goog.math.randomInt(WIDTH), tagjam13.Scene.BOTTOM_OF_SILL);
     this.items_ = [startingBucket];
     this.appendChild(startingBucket);
+
+    this.pauseLabel_ = new lime.Label().setSize(160,50).setFontSize(30)
+        .setText('Paused').setPosition(WIDTH/2, HEIGHT/2);
 };
 
 goog.inherits(tagjam13.Scene, lime.Scene);
@@ -42,6 +45,11 @@ tagjam13.Scene.DROPLET_DISTANCE = 100;
 
 tagjam13.Scene.prototype.pause = function() {
     this.paused_ = !this.paused_;
+    if (this.paused_) {
+        this.appendChild(this.pauseLabel_);
+    } else {
+        this.removeChild(this.pauseLabel_);
+    }
 };
 
 tagjam13.Scene.prototype.createBug = function() {
