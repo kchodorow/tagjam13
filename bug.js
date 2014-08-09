@@ -1,13 +1,19 @@
-goog.provide('tagjam13.Bug');
+goog.provide('tagjam13.BucketFly');
+goog.provide('tagjam13.Dragonfly');
+goog.provide('tagjam13.Bee');
 
 goog.require('lime.Sprite');
+
+goog.require('tagjam13.Bucket');
+goog.require('tagjam13.Wax');
+goog.require('tagjam13.Dragon');
 
 tagjam13.Bug = function() {
     goog.base(this);
 
     this.initialY_ = tagjam13.Scene.BOTTOM_OF_SILL +
         goog.math.randomInt(tagjam13.Bug.WEB_HEIGHT);
-    this.setSize(LEN/2, LEN/2).setFill('#070').setPosition(0, this.initialY_);
+    this.setSize(LEN/2, LEN/2).setPosition(0, this.initialY_);
 
     this.flying_ = true;
     this.captureAt_ = goog.math.randomInt(WIDTH);
@@ -20,6 +26,11 @@ tagjam13.Bug.WEB_HEIGHT = 400;
 tagjam13.Bug.BOUNCE = 25;
 tagjam13.Bug.SPEED = .1;
 tagjam13.Bug.PERIOD = (2 * Math.PI / 50); // 50px wide
+
+tagjam13.Bug.BUCKET_FLY = 0;
+tagjam13.Bug.DRAGONFLY = 1;
+tagjam13.Bug.BEE = 2;
+tagjam13.Bug.NUM_TYPES = 3;
 
 tagjam13.Bug.prototype.isTrapped = function() {
     return !this.flying_;
@@ -45,4 +56,43 @@ tagjam13.Bug.prototype.fly = function(delta) {
 
 tagjam13.Bug.prototype.flail = function(delta) {
     this.setFill('#900');
+};
+
+tagjam13.Bug.prototype.eaten = function() {
+    this.getParent().removeChild(this);
+    return new tagjam13.Bucket();
+};
+
+tagjam13.BucketFly = function() {
+    goog.base(this);
+
+    this.setFill('#777');
+};
+
+goog.inherits(tagjam13.BucketFly, tagjam13.Bug);
+
+tagjam13.Dragonfly = function() {
+    goog.base(this);
+
+    this.setFill('#070');
+};
+
+goog.inherits(tagjam13.Dragonfly, tagjam13.Bug);
+
+tagjam13.Dragonfly.prototype.eaten = function() {
+    this.getParent().removeChild(this);
+    return new tagjam13.Dragon();
+};
+
+tagjam13.Bee = function() {
+    goog.base(this);
+
+    this.setFill('#880');
+};
+
+goog.inherits(tagjam13.Bee, tagjam13.Bug);
+
+tagjam13.Bee.prototype.eaten = function() {
+    this.getParent().removeChild(this);
+    return new tagjam13.Wax();
 };

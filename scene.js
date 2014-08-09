@@ -4,7 +4,10 @@ goog.require('lime.Scene');
 goog.require('lime.Sprite');
 
 goog.require('tagjam13.Bucket');
-goog.require('tagjam13.Bug');
+goog.require('tagjam13.Bee');
+goog.require('tagjam13.BucketFly');
+goog.require('tagjam13.Dragonfly');
+goog.require('tagjam13.Bee');
 goog.require('tagjam13.Droplet');
 goog.require('tagjam13.DropPoint');
 
@@ -38,7 +41,15 @@ tagjam13.Scene.prototype.pause = function() {
 };
 
 tagjam13.Scene.prototype.createBug = function() {
-    var bug = new tagjam13.Bug();
+    var bugType = goog.math.randomInt(tagjam13.Bug.NUM_TYPES);
+    var bug = null;
+    if (bugType == tagjam13.Bug.BUCKET_FLY) {
+        bug = new tagjam13.BucketFly();
+    } else if (bugType == tagjam13.Bug.DRAGONFLY) {
+        bug = new tagjam13.Dragonfly();
+    } else {
+        bug = new tagjam13.Bee();
+    }
     this.appendChild(bug);
     this.bugs_.push(bug);
 };
@@ -85,12 +96,11 @@ tagjam13.Scene.prototype.handleSpider_ = function(delta) {
     this.spider_.setPosition(pos);
     var nearbyBug = this.getBugNearSpider_();
     if (nearbyBug != null) {
-        this.spider_.eatBug(nearbyBug);
+        var treasure = this.spider_.eatBug(nearbyBug);
         goog.array.remove(this.bugs_, nearbyBug);
-        var bucket = new tagjam13.Bucket();
-        this.items_.push(bucket);
-        bucket.setPosition(this.spider_.getPosition().clone());
-        this.appendChild(bucket);
+        this.items_.push(treasure);
+        treasure.setPosition(this.spider_.getPosition().clone());
+        this.appendChild(treasure);
     }
 };
 
@@ -168,7 +178,7 @@ tagjam13.Scene.prototype.maybeSpawnDrop_ = function() {
 };
 
 tagjam13.Scene.prototype.bugify_ = function(delta) {
-    if (goog.math.randomInt(1000) == 0) {
+    if (goog.math.randomInt(200) == 0) {
         this.createBug();
     }
 

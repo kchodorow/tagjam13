@@ -5,12 +5,11 @@ Pause
   * Instructions
   * Animation
 Start droplets slightly higher than drop points
-Add bees
 Add wet webs
-Add dragonflies
 Add game over
 Add win animation
 Add lose animation
+Add bugs escaping
 
 Graphics
 --------
@@ -22,7 +21,14 @@ Spider
   * Carrying (2 legs)
   * Luggage (end of game)
 Bucket
+  * Empty bucket
   * Full bucket
+Wax
+  * Being carried
+  * On ceiling
+Dragon
+  * Being carried
+  * Breathing Fire
 Bugs
   * Bucket fly
   * Wax bee
@@ -30,6 +36,7 @@ Bugs
 Droplet
 Web
   * Wet web
+  * Web up edges
 Sill
 Window
 Storm
@@ -39,3 +46,4 @@ Sound
 
 Fly buzz
 Drip noise
+Thunder noises

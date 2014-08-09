@@ -17,7 +17,7 @@ tagjam13.Spider.prototype.STOP = new goog.math.Vec2(0, 0);
 tagjam13.Spider.prototype.MAX_SPEED = .5;
 
 tagjam13.Spider.prototype.eatBug = function(bug) {
-    bug.getParent().removeChild(bug);
+    return bug.eaten();
 };
 
 tagjam13.Spider.prototype.hasItem = function() {
