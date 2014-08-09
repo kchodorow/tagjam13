@@ -7,9 +7,9 @@ goog.require('tagjam13.Bucket');
 goog.require('tagjam13.Bee');
 goog.require('tagjam13.BucketFly');
 goog.require('tagjam13.Dragonfly');
-goog.require('tagjam13.Bee');
 goog.require('tagjam13.Droplet');
 goog.require('tagjam13.DropPoint');
+goog.require('tagjam13.Web');
 
 tagjam13.Scene = function(spider) {
     goog.base(this);
@@ -19,6 +19,10 @@ tagjam13.Scene = function(spider) {
     this.droplets_ = [];
     this.dropPoints_ = [];
     this.paused_ = false;
+
+    this.web_ = new tagjam13.Web();
+    this.web_.setPosition(this.web_.getOffsets());
+    this.appendChild(this.web_);
 
     var startingBucket = new tagjam13.Bucket().setPosition(
         goog.math.randomInt(WIDTH), tagjam13.Scene.BOTTOM_OF_SILL);
@@ -52,6 +56,18 @@ tagjam13.Scene.prototype.createBug = function() {
     }
     this.appendChild(bug);
     this.bugs_.push(bug);
+};
+
+// Choose a random drip and drop it
+tagjam13.Scene.prototype.dropDrip = function() {
+    var num = this.dropPoints_.length;
+    if (num == 0) {
+        console.log("No drop point");
+        return;
+    }
+
+    var dripIdx = goog.math.randomInt(this.dropPoints_.length);
+    this.dropPoints_[dripIdx].setFalling(true);
 };
 
 tagjam13.Scene.prototype.useItem = function() {
@@ -146,13 +162,28 @@ tagjam13.Scene.prototype.handleDropPoints_ = function(delta) {
     for (var i = 0; i < this.dropPoints_.length; ++i) {
         var dropPoint = this.dropPoints_[i];
         var done = dropPoint.tick(delta);
-        if (done) {
-            this.removeChild(dropPoint);
-            goog.array.remove(this.dropPoints_, dropPoint);
+        if (!done) {
+            continue;
         }
+
+        // Check if it landed in a bucket.
+        var caught = false;
+        for (var j in this.items_) {
+            var item = this.items_[j];
+            if (item.getId() == tagjam13.Item.BUCKET &&
+                this.isTouching_(dropPoint, item)) {
+                // TODO: fill bucket
+                caught = true;
+            }
+        }
+        if (!caught) {
+            var ruined = this.web_.dripOn();
+            // TODO: game over
+        }
+        this.removeChild(dropPoint);
+        goog.array.remove(this.dropPoints_, dropPoint);
     }
 };
-
 
 tagjam13.Scene.prototype.maybeSpawnDrop_ = function() {
     if (goog.math.randomInt(100) != 0) {

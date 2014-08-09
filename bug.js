@@ -32,6 +32,10 @@ tagjam13.Bug.DRAGONFLY = 1;
 tagjam13.Bug.BEE = 2;
 tagjam13.Bug.NUM_TYPES = 3;
 
+tagjam13.Bug.prototype.getId = function() {
+    return this.id_;
+};
+
 tagjam13.Bug.prototype.isTrapped = function() {
     return !this.flying_;
 };
@@ -67,6 +71,7 @@ tagjam13.BucketFly = function() {
     goog.base(this);
 
     this.setFill('#777');
+    this.id_ = tagjam13.Bug.BUCKET_FLY;
 };
 
 goog.inherits(tagjam13.BucketFly, tagjam13.Bug);
@@ -75,6 +80,7 @@ tagjam13.Dragonfly = function() {
     goog.base(this);
 
     this.setFill('#070');
+    this.id_ = tagjam13.Bug.DRAGONFLY;
 };
 
 goog.inherits(tagjam13.Dragonfly, tagjam13.Bug);
@@ -88,6 +94,7 @@ tagjam13.Bee = function() {
     goog.base(this);
 
     this.setFill('#880');
+    this.id_ = tagjam13.Bug.BEE;
 };
 
 goog.inherits(tagjam13.Bee, tagjam13.Bug);

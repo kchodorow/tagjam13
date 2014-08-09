@@ -61,3 +61,8 @@ tagjam13.DropPoint.prototype.addDrop = function(drop) {
         }
     }
 };
+
+// For debugging.
+tagjam13.DropPoint.prototype.setFalling = function(falling) {
+    this.falling_ = falling;
+};

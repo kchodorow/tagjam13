@@ -21,6 +21,7 @@ tagjam13.start = function(){
     keyboard.bindWasd(goog.bind(spider.setIntention, spider));
     keyboard.bind(goog.events.KeyCodes.P, goog.bind(scene.pause, scene));
     keyboard.bind(goog.events.KeyCodes.B, goog.bind(scene.createBug, scene));
+    keyboard.bind(goog.events.KeyCodes.D, goog.bind(scene.dropDrip, scene));
     keyboard.bind(goog.events.KeyCodes.SPACE, goog.bind(scene.useItem, scene));
 
     scene.appendChild(spider);
