@@ -3,6 +3,7 @@ goog.provide('tagjam13.Scene');
 goog.require('lime.Scene');
 goog.require('lime.Sprite');
 
+goog.require('tagjam13.Bucket');
 goog.require('tagjam13.Bug');
 goog.require('tagjam13.Droplet');
 
@@ -14,12 +15,10 @@ tagjam13.Scene = function(spider) {
     this.droplets_ = [];
     this.paused_ = false;
 
-    // TODO: make this general inventory.
-    this.bucket_ = new lime.Sprite()
-        .setSize(tagjam13.Scene.BUCKET_SIZE, tagjam13.Scene.BUCKET_SIZE)
-        .setPosition(goog.math.randomInt(WIDTH), tagjam13.Scene.BOTTOM_OF_SILL)
-        .setFill('#755');
-    this.appendChild(this.bucket_);
+    var startingBucket = new tagjam13.Bucket().setPosition(
+        goog.math.randomInt(WIDTH), tagjam13.Scene.BOTTOM_OF_SILL);
+    this.items_ = [startingBucket];
+    this.appendChild(startingBucket);
 };
 
 goog.inherits(tagjam13.Scene, lime.Scene);
@@ -29,7 +28,6 @@ tagjam13.Scene.RIGHT_MARGIN = WIDTH - 30;
 tagjam13.Scene.TOP_OF_SILL = 30;
 tagjam13.Scene.BOTTOM_OF_SILL = 300;
 tagjam13.Scene.BOTTOM_OF_WINDOW = HEIGHT - 30;
-tagjam13.Scene.BUCKET_SIZE = 20;
 tagjam13.Scene.TOUCHING = LEN/2;
 
 tagjam13.Scene.prototype.pause = function() {
@@ -45,17 +43,26 @@ tagjam13.Scene.prototype.createBug = function() {
 tagjam13.Scene.prototype.useItem = function() {
     if (this.spider_.hasItem()) {
         var bucket = this.spider_.dropItem();
-        this.bucket_ = bucket;
+        this.items_.push(bucket);
         this.appendChild(bucket);
         bucket.setPosition(this.spider_.getPosition().clone());
-    } else if (this.bucket_ != null &&
-               this.isTouching_(this.bucket_, this.spider_)) {
-        this.removeChild(this.bucket_);
-        this.spider_.setItem(this.bucket_);
-        this.bucket_ = null;
     } else {
-        // TODO: have spider shrug or something.
-        this.spider_.shrug();
+        var pickedUp = false;
+        for (var i = 0; i < this.items_.length; ++i) {
+            var item = this.items_[i];
+            if (!this.isTouching_(item, this.spider_)) {
+                continue;
+            }
+            this.removeChild(item);
+            this.spider_.setItem(item);
+            goog.array.remove(this.items_, item);
+            pickedUp = true;
+            break;
+        }
+        if (!pickedUp) {
+            // TODO: have spider shrug or something.
+            this.spider_.shrug();
+        }
     }
 };
 
@@ -71,6 +78,10 @@ tagjam13.Scene.prototype.tick = function(delta) {
     if (nearbyBug != null) {
         this.spider_.eatBug(nearbyBug);
         goog.array.remove(this.bugs_, nearbyBug);
+        var bucket = new tagjam13.Bucket();
+        this.items_.push(bucket);
+        bucket.setPosition(this.spider_.getPosition().clone());
+        this.appendChild(bucket);
         // TODO: have bug drop treasure.
     }
 
