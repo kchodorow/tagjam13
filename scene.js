@@ -72,10 +72,7 @@ tagjam13.Scene.prototype.dropDrip = function() {
 
 tagjam13.Scene.prototype.useItem = function() {
     if (this.spider_.hasItem()) {
-        var bucket = this.spider_.dropItem();
-        this.items_.push(bucket);
-        this.appendChild(bucket);
-        bucket.setPosition(this.spider_.getPosition().clone());
+        this.useItem_(this.spider_.dropItem());
     } else {
         var pickedUp = false;
         for (var i = 0; i < this.items_.length; ++i) {
@@ -236,4 +233,16 @@ tagjam13.Scene.prototype.getBugNearSpider_ = function() {
         }
     }
     return null;
+};
+
+tagjam13.Scene.prototype.useItem_ = function(item) {
+    if (item.getId() == tagjam13.Item.BUCKET) {
+        this.items_.push(item);
+        this.appendChild(item);
+        item.setPosition(this.spider_.getPosition().clone());
+    } else if (item.getId() == tagjam13.Item.DRAGON) {
+        this.web_.dryOff(this.spider_.getPosition());
+    } else { // WAX
+        // TODO
+    }
 };
