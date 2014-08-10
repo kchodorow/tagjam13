@@ -1,14 +1,14 @@
 Programming
 -----------
 
-Add title
 Add game over
 Add win animation
 Add lose animation
-Add spider climbing up to ceiling
 Add spider applying wax
 
 Low importance:
+* Limit bugs from getting caught on edges
+* Use droplet shape for raindrops
 * Add bugs escaping
 * Start droplets slightly higher than drop points
 * Make droplets roll
@@ -19,16 +19,11 @@ Low importance:
 Graphics
 --------
 
-Adjust colors
-44px bucket
 Spider
   * Eating bug
   * Shrugging
   * Carrying (2 legs)
   * Luggage (end of game)
-Web
-  * Web up edges
-Sill
 Window
 Storm
 

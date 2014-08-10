@@ -149,7 +149,7 @@ tagjam13.Scene.prototype.useItem = function() {
 
 tagjam13.Scene.prototype.setTutorial = function(tutorial) {
     this.tutorial_ = tutorial;
-    this.appendChild(this.tutorial_.setPosition(WIDTH/2, 100));
+    this.appendChild(this.tutorial_.setPosition(WIDTH/2, HEIGHT/2));
 };
 
 tagjam13.Scene.prototype.tick = function(delta) {
