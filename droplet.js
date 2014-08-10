@@ -7,7 +7,8 @@ tagjam13.Droplet = function() {
 
     var dropPos = goog.math.randomInt(WIDTH);
     var dropSize = goog.math.randomInt(20) + tagjam13.Droplet.MIN_DROP_SIZE;
-    this.setSize(dropSize, dropSize).setFill('#008')
+    this.setSize(dropSize, dropSize)
+        .setFill(tagjam13.resources.getDroplet())
         .setPosition(dropPos, tagjam13.Scene.TOP_OF_SILL);
 
     this.falling_ = false;

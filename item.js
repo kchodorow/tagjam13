@@ -24,7 +24,8 @@ tagjam13.Item.prototype.getId = function() {
 tagjam13.Bucket = function() {
     goog.base(this);
 
-    this.setSize(tagjam13.Item.SIZE, tagjam13.Item.SIZE).setFill('#733');
+    this.setSize(tagjam13.Item.SIZE, tagjam13.Item.SIZE)
+        .setFill(tagjam13.resources.getBucket());
     this.id_ = tagjam13.Item.BUCKET;
 };
 
@@ -33,7 +34,8 @@ goog.inherits(tagjam13.Bucket, tagjam13.Item);
 tagjam13.Wax = function() {
     goog.base(this);
 
-    this.setSize(tagjam13.Item.SIZE, tagjam13.Item.SIZE).setFill('#a71');
+    this.setSize(tagjam13.Item.SIZE, tagjam13.Item.SIZE)
+        .setFill(tagjam13.resources.getWax());
     this.id_ = tagjam13.Item.WAX;
 };
 
@@ -42,7 +44,8 @@ goog.inherits(tagjam13.Wax, tagjam13.Item);
 tagjam13.Dragon = function() {
     goog.base(this);
 
-    this.setSize(tagjam13.Item.SIZE, tagjam13.Item.SIZE).setFill('#171');
+    this.setSize(tagjam13.Item.SIZE, tagjam13.Item.SIZE)
+        .setFill(tagjam13.resources.getDragon());
     this.id_ = tagjam13.Item.DRAGON;
 };
 

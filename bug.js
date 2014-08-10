@@ -59,7 +59,7 @@ tagjam13.Bug.prototype.fly = function(delta) {
 };
 
 tagjam13.Bug.prototype.flail = function(delta) {
-    this.setFill('#900');
+    // TODO
 };
 
 tagjam13.Bug.prototype.eaten = function() {
@@ -70,7 +70,7 @@ tagjam13.Bug.prototype.eaten = function() {
 tagjam13.BucketFly = function() {
     goog.base(this);
 
-    this.setFill('#777');
+    this.runAction(tagjam13.resources.getFlyFly());
     this.id_ = tagjam13.Bug.BUCKET_FLY;
 };
 
@@ -79,7 +79,7 @@ goog.inherits(tagjam13.BucketFly, tagjam13.Bug);
 tagjam13.Dragonfly = function() {
     goog.base(this);
 
-    this.setFill('#070');
+    this.runAction(tagjam13.resources.getDragonflyFly());
     this.id_ = tagjam13.Bug.DRAGONFLY;
 };
 
@@ -93,7 +93,7 @@ tagjam13.Dragonfly.prototype.eaten = function() {
 tagjam13.Bee = function() {
     goog.base(this);
 
-    this.setFill('#880');
+    this.runAction(tagjam13.resources.getBeeFly());
     this.id_ = tagjam13.Bug.BEE;
 };
 

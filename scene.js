@@ -14,6 +14,10 @@ goog.require('tagjam13.Web');
 tagjam13.Scene = function(spider) {
     goog.base(this);
 
+    var background = new lime.Sprite().setSize(WIDTH, HEIGHT)
+            .setFill('#354242').setPosition(WIDTH/2, HEIGHT/2);
+    this.appendChild(background);
+
     this.spider_ = spider;
     this.bugs_ = [];
     this.droplets_ = [];

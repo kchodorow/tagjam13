@@ -10,26 +10,34 @@ tagjam13.Web = function() {
                          tagjam13.Scene.BOTTOM_OF_SILL)/2;
 
     this.midpointY_ = tagjam13.Scene.BOTTOM_OF_SILL + sectionHeight;
-    this.sections_ = [[], []];
+
+    var upperLeft = new lime.Sprite().setSize(sectionWidth, sectionHeight)
+            .setPosition(0, 0)
+            .setFill(tagjam13.resources.getWeb());
+    var upperRight = new lime.Sprite().setSize(sectionWidth, sectionHeight)
+            .setPosition(sectionWidth, 0).setScale(-1, 1)
+            .setFill(tagjam13.resources.getWeb());
+    var lowerLeft = new lime.Sprite().setSize(sectionWidth, sectionHeight)
+            .setPosition(0, sectionHeight).setScale(1, -1)
+            .setFill(tagjam13.resources.getWeb());
+    var lowerRight = new lime.Sprite().setSize(sectionWidth, sectionHeight)
+            .setPosition(sectionWidth, sectionHeight).setScale(-1, -1)
+            .setFill(tagjam13.resources.getWeb());
+
+    this.sections_ = [[upperLeft, lowerLeft], [upperRight, lowerRight]];
     for (var i = 0; i < 2; i++) {
-        var sectionT = new lime.Sprite().setSize(sectionWidth, sectionHeight)
-            .setPosition(sectionWidth * i, 0)
-            .setFill(tagjam13.Web.FILLS[tagjam13.Web.MAX_HEALTH]);
-        sectionT.health_ = tagjam13.Web.MAX_HEALTH;
-        this.appendChild(sectionT);
-        var sectionB = new lime.Sprite().setSize(sectionWidth, sectionHeight)
-            .setPosition(sectionWidth * i, sectionHeight)
-            .setFill(tagjam13.Web.FILLS[tagjam13.Web.MAX_HEALTH]);
-        sectionB.health_ = tagjam13.Web.MAX_HEALTH;
-        this.appendChild(sectionB);
-        this.sections_[i] = [sectionT, sectionB];
+        for (var j = 0; j < 2; j++) {
+            var section = this.sections_[i][j];
+            section.health_ = tagjam13.Web.MAX_HEALTH;
+            this.appendChild(section);
+        }
     }
 };
 
 goog.inherits(tagjam13.Web, lime.Sprite);
 
 tagjam13.Web.MAX_HEALTH = 2;
-tagjam13.Web.FILLS = ['#444', '#888', '#ddd'];
+tagjam13.Web.OPACITY = [.1, .3, 1];
 
 tagjam13.Web.prototype.getOffsets = function() {
     var size = this.sections_[0][0].getSize();
@@ -58,7 +66,7 @@ tagjam13.Web.prototype.dripOn = function() {
     }
 
     section.health_ = Math.max(section.health_ - 1, 0);
-    section.setFill(tagjam13.Web.FILLS[section.health_]);
+    section.setOpacity(tagjam13.Web.OPACITY[section.health_]);
     return section.health_ <= 0;
 };
 
@@ -73,6 +81,6 @@ tagjam13.Web.prototype.dryOff = function(pos) {
 
     this.sections_[x][y].health_ = Math.min(
         this.sections_[x][y].health_ + 1, tagjam13.Web.MAX_HEALTH);
-    this.sections_[x][y].setFill(
-        tagjam13.Web.FILLS[this.sections_[x][y].health_]);
+    this.sections_[x][y].setOpacity(
+        tagjam13.Web.OPACITY[this.sections_[x][y].health_]);
 };

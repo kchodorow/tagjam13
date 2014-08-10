@@ -1,6 +1,9 @@
 goog.provide('tagjam13');
 
 goog.require('lime.Director');
+goog.require('lime.parser.JSON');
+goog.require('lime.ASSETS.spider.json');
+goog.require('lime.SpriteSheet');
 
 goog.require('lib.Keyboard');
 
@@ -8,10 +11,12 @@ var LEN = 44;
 var WIDTH = 1024;
 var HEIGHT = 768;
 
+goog.require('tagjam13.data.Resources');
 goog.require('tagjam13.Scene');
 goog.require('tagjam13.Spider');
 
 tagjam13.start = function(){
+    tagjam13.resources = new tagjam13.data.Resources();
 
     var director = new lime.Director(
         document.getElementById('game'), WIDTH, HEIGHT);
