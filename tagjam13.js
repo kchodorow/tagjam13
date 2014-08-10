@@ -12,11 +12,13 @@ var WIDTH = 1024;
 var HEIGHT = 768;
 
 goog.require('tagjam13.data.Resources');
+goog.require('tagjam13.data.Tutorial');
 goog.require('tagjam13.Scene');
 goog.require('tagjam13.Spider');
 
 tagjam13.start = function(){
     tagjam13.resources = new tagjam13.data.Resources();
+    tagjam13.tutorial = new tagjam13.data.Tutorial();
 
     var director = new lime.Director(
         document.getElementById('game'), WIDTH, HEIGHT);
@@ -31,9 +33,8 @@ tagjam13.start = function(){
     keyboard.bind(goog.events.KeyCodes.SPACE, goog.bind(scene.useItem, scene));
 
     scene.appendChild(spider);
-    scene.getSpider = function() { return spider; };
-
-    lime.scheduleManager.schedule(scene.tick, scene);
+    scene.tutorial_ = tagjam13.tutorial.intro().setPosition(WIDTH/2, 100);
+    scene.appendChild(scene.tutorial_);
 
     director.replaceScene(scene);
 };

@@ -36,6 +36,9 @@ tagjam13.Scene = function(spider) {
     this.pauseLabel_ = tagjam13.resources.getLabel().setSize(160,50)
         .setText('Paused')
         .setPosition(WIDTH/2, tagjam13.Scene.BOTTOM_OF_SILL/2);
+
+    // If the game has started.
+    this.begun_ = false;
 };
 
 goog.inherits(tagjam13.Scene, lime.Scene);
@@ -84,6 +87,13 @@ tagjam13.Scene.prototype.dropDrip = function() {
 };
 
 tagjam13.Scene.prototype.useItem = function() {
+    if (!this.begun_) {
+        this.removeChild(this.tutorial_);
+        this.begun_ = true;
+        lime.scheduleManager.schedule(this.tick, this);
+        return;
+    }
+
     if (this.spider_.hasItem()) {
         this.useItem_(this.spider_.dropItem());
     } else {
