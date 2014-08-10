@@ -24,6 +24,7 @@ tagjam13.Scene = function(spider) {
     this.web_ = new tagjam13.Web();
     this.web_.setPosition(this.web_.getOffsets());
     this.appendChild(this.web_);
+    this.ceiling_ = new tagjam13.Scene.Ceiling();
 
     var marginLeft = new lime.Sprite()
             .setFill(tagjam13.resources.getWoodGrain())
@@ -277,6 +278,9 @@ tagjam13.Scene.prototype.maybeSpawnDrop_ = function() {
         return;
     }
     var drop = new tagjam13.Droplet();
+    if (this.ceiling_.isWaxed(drop.getPosition().x)) {
+        return;
+    }
     this.appendChild(drop);
     this.droplets_.push(drop);
 
@@ -326,8 +330,9 @@ tagjam13.Scene.prototype.getBugNearSpider_ = function() {
 };
 
 tagjam13.Scene.prototype.useItem_ = function(item) {
+    var spiderPos = this.spider_.getPosition().clone();
     this.appendChild(item);
-    item.setPosition(this.spider_.getPosition().clone());
+    item.setPosition(spiderPos);
     if (item.getId() == tagjam13.Item.BUCKET) {
         this.items_.push(item);
     } else if (item.getId() == tagjam13.Item.DRAGON) {
@@ -338,8 +343,84 @@ tagjam13.Scene.prototype.useItem_ = function(item) {
              new lime.animation.FadeTo(0).setDuration(2)));
         this.web_.dryOff(this.spider_.getPosition());
     } else { // WAX
-        this.items_.push(item);
-        item.setPosition(this.spider_.getPosition().clone());
-        // TODO
+        if (this.spider_.getPosition().y == tagjam13.Scene.TOP_OF_SILL) {
+            this.appendChild(tagjam13.resources.getCeilingWax()
+                             .setPosition(spiderPos));
+            var done = this.ceiling_.wax(spiderPos.x);
+            if (done) {
+                this.setTutorial(tagjam13.tutorial.win());
+            }
+        } else {
+            this.items_.push(item);
+            item.setPosition(spiderPos);
+        }
+    }
+};
+
+tagjam13.Scene.Ceiling = function() {
+    this.intervals_ = [];
+};
+
+tagjam13.Scene.Ceiling.prototype.wax = function(pos) {
+    var min = pos - 128;
+    var max = pos + 128;
+    var inExisting = false;
+    for (var i = 0; i < this.intervals_.length; ++i) {
+        var cur = this.intervals_[i];
+        if (cur.min < min && min < cur.max) {
+            if (cur.max < max) {
+                cur.max = max;
+            }
+            inExisting = true;
+        }
+        if (cur.max > max && max > cur.min) {
+            if (cur.min < min) {
+                cur.min = min;
+            }
+            inExisting = true;
+        }
+    }
+
+    if (!inExisting) {
+        var index = 0;
+        cur = this.intervals_[index];
+        while (index < this.intervals_.length - 1 && cur.max < min) {
+            cur = this.intervals_[++index];
+        }
+        goog.array.insertAt(this.intervals_, {min : min, max : max}, index);
+    }
+
+    this.fixOverlaps_();
+
+    return this.intervals_.length == 1 &&
+        this.intervals_[0].min <= 50 && this.intervals_[0].max >= 950;
+};
+
+tagjam13.Scene.Ceiling.prototype.isWaxed = function(pos) {
+    for (var i in this.intervals_) {
+        if (this.intervals_[i].min <= pos && this.intervals_[i].max >= pos) {
+            return true;
+        }
+    }
+    return false;
+};
+
+tagjam13.Scene.Ceiling.prototype.fixOverlaps_ = function() {
+    if (this.intervals_.length <= 1) {
+        return;
+    }
+
+    // Fix up overlapping ranges.
+    var done = false;
+    var index = 0;
+    while (index < this.intervals_.length - 1) {
+        var cur = this.intervals_[index];
+        var next = this.intervals_[index+1];
+        if (cur.max >= next.min) {
+            cur.max = next.max;
+            goog.array.remove(this.intervals_, next);
+        } else {
+            index++;
+        }
     }
 };

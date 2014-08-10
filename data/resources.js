@@ -98,3 +98,9 @@ tagjam13.data.Resources.prototype.getWoodGrain = function() {
 tagjam13.data.Resources.prototype.getFire = function() {
     return this.spriteSheet_.getFrame('Spider_6.png');
 };
+
+tagjam13.data.Resources.prototype.getCeilingWax = function() {
+    return new lime.Sprite()
+        .setFill(this.spriteSheet_.getFrame('Spider_7.png'))
+        .setScale(4, 1);
+};

@@ -6,7 +6,8 @@ tagjam13.Spider = function() {
     goog.base(this);
 
     this.setFill(tagjam13.resources.getSpider(0))
-        .setPosition(WIDTH/2, tagjam13.Scene.BOTTOM_OF_SILL);
+        .setPosition(WIDTH/2, tagjam13.Scene.BOTTOM_OF_SILL)
+        .setScale(1.5, 1.5);
     this.intention_ = this.STOP;
     this.item_ = null;
     this.walk_ = tagjam13.resources.getSpiderWalk();

@@ -46,6 +46,11 @@ tagjam13.data.Tutorial.prototype.bug = function() {
                        "(spacebar to continue)"));
 };
 
+tagjam13.data.Tutorial.prototype.win = function() {
+    return this.getBanner_(2).appendChild(
+        this.getLabel_("You win!"));
+};
+
 tagjam13.data.Tutorial.prototype.getLabel_ = function(text) {
     return tagjam13.resources.getLabel().setText(text)
         .setFontSize(tagjam13.data.Tutorial.FONT_SIZE)
