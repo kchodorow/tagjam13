@@ -2,8 +2,6 @@ Programming
 -----------
 
 Add title
-Make bucket fill with water when full
-Make dragon breath fire
 Add game over
 Add win animation
 Add lose animation
@@ -15,6 +13,8 @@ Low importance:
 * Start droplets slightly higher than drop points
 * Make droplets roll
 * Add bug swearing
+* Make spider turn different directions
+* Make bucket fill with water when full
 
 Graphics
 --------

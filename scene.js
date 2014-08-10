@@ -1,5 +1,8 @@
 goog.provide('tagjam13.Scene');
 
+goog.require('lime.animation.ScaleBy');
+goog.require('lime.animation.Sequence');
+goog.require('lime.animation.FadeTo');
 goog.require('lime.Scene');
 goog.require('lime.Sprite');
 
@@ -323,13 +326,20 @@ tagjam13.Scene.prototype.getBugNearSpider_ = function() {
 };
 
 tagjam13.Scene.prototype.useItem_ = function(item) {
+    this.appendChild(item);
+    item.setPosition(this.spider_.getPosition().clone());
     if (item.getId() == tagjam13.Item.BUCKET) {
         this.items_.push(item);
-        this.appendChild(item);
-        item.setPosition(this.spider_.getPosition().clone());
     } else if (item.getId() == tagjam13.Item.DRAGON) {
+        var fire = new lime.Sprite().setFill(tagjam13.resources.getFire());
+        item.appendChild(fire.setAnchorPoint(0, .5).setPosition(32, 0));
+        fire.runAction(new lime.animation.Sequence(
+             new lime.animation.ScaleBy(3, 2).setDuration(2),
+             new lime.animation.FadeTo(0).setDuration(2)));
         this.web_.dryOff(this.spider_.getPosition());
     } else { // WAX
+        this.items_.push(item);
+        item.setPosition(this.spider_.getPosition().clone());
         // TODO
     }
 };

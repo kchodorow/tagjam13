@@ -94,3 +94,7 @@ tagjam13.data.Resources.prototype.getWeb = function() {
 tagjam13.data.Resources.prototype.getWoodGrain = function() {
     return this.spriteSheet_.getFrame('Spider_5.png');
 };
+
+tagjam13.data.Resources.prototype.getFire = function() {
+    return this.spriteSheet_.getFrame('Spider_6.png');
+};
