@@ -33,8 +33,9 @@ tagjam13.start = function(){
     keyboard.bind(goog.events.KeyCodes.SPACE, goog.bind(scene.useItem, scene));
 
     scene.appendChild(spider);
-    scene.tutorial_ = tagjam13.tutorial.intro().setPosition(WIDTH/2, 100);
-    scene.appendChild(scene.tutorial_);
+    scene.setTutorial(tagjam13.tutorial.intro());
+
+    lime.scheduleManager.schedule(scene.tick, scene);
 
     director.replaceScene(scene);
 };

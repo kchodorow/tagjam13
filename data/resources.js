@@ -42,7 +42,7 @@ tagjam13.data.Resources.prototype.getDragonfly = function() {
 
 tagjam13.data.Resources.prototype.getDragonflyFly = function() {
     var fly = new lime.animation.KeyframeAnimation()
-        .setDelay(1/4).setLooping(true);
+        .setDelay(1/8).setLooping(true);
     fly.addFrame(this.spriteSheet_.getFrame('Spider - Bugs_3.png'));
     fly.addFrame(this.spriteSheet_.getFrame('Spider - Bugs_4.png'));
     return fly;

@@ -28,10 +28,7 @@ tagjam13.Scene = function(spider) {
     this.web_.setPosition(this.web_.getOffsets());
     this.appendChild(this.web_);
 
-    var startingBucket = new tagjam13.Bucket().setPosition(
-        goog.math.randomInt(WIDTH), tagjam13.Scene.BOTTOM_OF_SILL);
-    this.items_ = [startingBucket];
-    this.appendChild(startingBucket);
+    this.items_ = [];
 
     this.pauseLabel_ = tagjam13.resources.getLabel().setSize(160,50)
         .setText('Paused')
@@ -87,10 +84,11 @@ tagjam13.Scene.prototype.dropDrip = function() {
 };
 
 tagjam13.Scene.prototype.useItem = function() {
-    if (!this.begun_) {
+    if (this.tutorial_ != null) {
         this.removeChild(this.tutorial_);
-        this.begun_ = true;
-        lime.scheduleManager.schedule(this.tick, this);
+        this.tutorial_ = null;
+        // Starting bug
+        this.createBug();
         return;
     }
 
@@ -116,8 +114,13 @@ tagjam13.Scene.prototype.useItem = function() {
     }
 };
 
+tagjam13.Scene.prototype.setTutorial = function(tutorial) {
+    this.tutorial_ = tutorial;
+    this.appendChild(this.tutorial_.setPosition(WIDTH/2, 100));
+};
+
 tagjam13.Scene.prototype.tick = function(delta) {
-    if (this.paused_) {
+    if (this.paused_ || this.tutorial_ != null) {
         return;
     }
 

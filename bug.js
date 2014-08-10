@@ -23,7 +23,7 @@ goog.inherits(tagjam13.Bug, lime.Sprite);
 
 tagjam13.Bug.WEB_HEIGHT = 400;
 
-tagjam13.Bug.BOUNCE = 25;
+tagjam13.Bug.BOUNCE = 20;
 tagjam13.Bug.SPEED = .1;
 tagjam13.Bug.PERIOD = (2 * Math.PI / 50); // 50px wide
 
@@ -31,6 +31,8 @@ tagjam13.Bug.BUCKET_FLY = 0;
 tagjam13.Bug.DRAGONFLY = 1;
 tagjam13.Bug.BEE = 2;
 tagjam13.Bug.NUM_TYPES = 3;
+
+tagjam13.Bug.FIRST_CAUGHT = true;
 
 tagjam13.Bug.prototype.getId = function() {
     return this.id_;
@@ -59,6 +61,10 @@ tagjam13.Bug.prototype.fly = function(delta) {
 };
 
 tagjam13.Bug.prototype.flail = function(delta) {
+    if (tagjam13.Bug.FIRST_CAUGHT) {
+        this.getParent().setTutorial(tagjam13.tutorial.bug());
+        tagjam13.Bug.FIRST_CAUGHT = false;
+    }
     this.flyAnimation_.stop();
     this.setFill(this.stuckFill_);
 };
@@ -94,6 +100,16 @@ tagjam13.Dragonfly.prototype.eaten = function() {
     this.getParent().removeChild(this);
     return new tagjam13.Dragon();
 };
+
+tagjam13.Dragonfly.prototype.fly = function(delta) {
+    // Fly without bouncing.
+    var pos = this.getPosition();
+    var nextPos = pos.x + tagjam13.Bug.SPEED * delta;
+    pos.x = Math.min(nextPos, this.captureAt_);
+    this.setPosition(pos.x, pos.y);
+    this.flying_ = pos.x < this.captureAt_;
+};
+
 
 tagjam13.Bee = function() {
     goog.base(this);

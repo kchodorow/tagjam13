@@ -21,20 +21,30 @@ tagjam13.data.Tutorial.prototype.intro = function() {
     return banner;
 };
 
-tagjam13.data.Tutorial.prototype.bucket = function() {
+tagjam13.data.Tutorial.prototype.item = function() {
     return this.getBanner_(1).appendChild(
-        this.getLabel_("Press spacebar to pick up a bucket"));
+        this.getLabel_("Bugs drop supplies, press spacebar\nto pick them up"));
+};
+
+tagjam13.data.Tutorial.prototype.bug = function() {
+    return this.getBanner_(1).appendChild(
+        this.getLabel_("Eat bugs that get trapped in your web\n"+
+                       "(spacebar to continue)"));
 };
 
 tagjam13.data.Tutorial.prototype.getLabel_ = function(text) {
     return tagjam13.resources.getLabel().setText(text)
         .setFontSize(tagjam13.data.Tutorial.FONT_SIZE)
-        .setFontColor('#FFFF9D')
-        .setPosition(0, tagjam13.data.Tutorial.LINE_HEIGHT);
+        .setFontColor('#ACEBAE')
+        .setPosition(0, tagjam13.data.Tutorial.LINE_HEIGHT)
+        .setMultiline(true);
 };
 
 tagjam13.data.Tutorial.prototype.getBanner_ = function(lines) {
     var height = tagjam13.data.Tutorial.LINE_HEIGHT * (lines+1);
-    return new lime.Sprite().setSize(700, height).setFill('#7D9100')
-            .setAnchorPoint(.5, 0);
+    var background = new lime.Sprite().setSize(710, height+10)
+            .setFill('#ACEBAE').setAnchorPoint(.5, 0);
+    return background.appendChild(
+        new lime.Sprite().setSize(700, height).setFill('#7D9100')
+            .setAnchorPoint(.5, 0).setPosition(0, 5)).setStroke(3, '#324242');
 };
