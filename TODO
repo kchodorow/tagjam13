@@ -1,6 +1,16 @@
 Programming
 -----------
 
+Tutorial
+  * Add initial directions
+  * Add bucket directions
+  * Add "Pick up item" message
+  * Add fix web with dragon message
+  * Add beeswax instructions
+
+Add bug swearing
+Make bucket fill with water when full
+Make dragon breath fire
 Add game over
 Add win animation
 Add lose animation
@@ -10,32 +20,19 @@ Add spider applying wax
 Low importance:
 * Add bugs escaping
 * Start droplets slightly higher than drop points
+* Make droplets roll
 
 Graphics
 --------
 
+Adjust colors
+44px bucket
 Spider
   * Eating bug
   * Shrugging
-  * Walking
   * Carrying (2 legs)
   * Luggage (end of game)
-Bucket
-  * Empty bucket
-  * Full bucket
-Wax
-  * Being carried
-  * On ceiling
-Dragon
-  * Being carried
-  * Breathing Fire
-Bugs
-  * Bucket fly
-  * Wax bee
-  * Dragonfly
-Droplet
 Web
-  * Wet web
   * Web up edges
 Sill
 Window

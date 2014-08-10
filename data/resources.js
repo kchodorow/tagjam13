@@ -1,10 +1,15 @@
 goog.provide('tagjam13.data.Resources');
 
 goog.require('lime.animation.KeyframeAnimation');
+goog.require('lime.Label');
 
 tagjam13.data.Resources = function() {
     this.spriteSheet_ = new lime.SpriteSheet(
         'assets/spider.png', lime.ASSETS.spider.json, lime.parser.JSON);
+};
+
+tagjam13.data.Resources.prototype.getLabel = function() {
+    return new lime.Label().setFontColor('#ACEBAE').setFontSize(44);
 };
 
 tagjam13.data.Resources.prototype.getSpider = function() {

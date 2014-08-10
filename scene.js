@@ -33,8 +33,9 @@ tagjam13.Scene = function(spider) {
     this.items_ = [startingBucket];
     this.appendChild(startingBucket);
 
-    this.pauseLabel_ = new lime.Label().setSize(160,50).setFontSize(30)
-        .setText('Paused').setPosition(WIDTH/2, HEIGHT/2);
+    this.pauseLabel_ = tagjam13.resources.getLabel().setSize(160,50)
+        .setText('Paused')
+        .setPosition(WIDTH/2, tagjam13.Scene.BOTTOM_OF_SILL/2);
 };
 
 goog.inherits(tagjam13.Scene, lime.Scene);
