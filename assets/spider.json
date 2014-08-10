@@ -2,7 +2,7 @@
 
 "Spider - Bugs_1.png":
 {
-	"frame": {"x":2,"y":390,"w":22,"h":22},
+	"frame": {"x":62,"y":424,"w":22,"h":22},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":22},
@@ -26,7 +26,7 @@
 },
 "Spider - Bugs_2.png":
 {
-	"frame": {"x":2,"y":462,"w":22,"h":18},
+	"frame": {"x":84,"y":472,"w":22,"h":18},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":4,"w":22,"h":18},
@@ -45,12 +45,12 @@
 	"frame": {"x":494,"y":96,"w":22,"h":10},
 	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":2,"w":22,"h":10},
+	"spriteSourceSize": {"x":0,"y":3,"w":22,"h":10},
 	"sourceSize": {"w":22,"h":22}
 },
 "Spider - Bugs_5.png":
 {
-	"frame": {"x":2,"y":486,"w":20,"h":18},
+	"frame": {"x":48,"y":254,"w":20,"h":18},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":18},
@@ -66,7 +66,7 @@
 },
 "Spider - Bugs_7.png":
 {
-	"frame": {"x":2,"y":438,"w":18,"h":22},
+	"frame": {"x":82,"y":448,"w":18,"h":22},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":18,"h":22},
@@ -74,7 +74,7 @@
 },
 "Spider - Bugs_8.png":
 {
-	"frame": {"x":2,"y":414,"w":18,"h":22},
+	"frame": {"x":62,"y":448,"w":18,"h":22},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":18,"h":22},
@@ -90,23 +90,63 @@
 },
 "Spider_1.png":
 {
-	"frame": {"x":48,"y":254,"w":38,"h":28},
+	"frame": {"x":32,"y":436,"w":38,"h":28},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":16,"w":38,"h":28},
+	"sourceSize": {"w":44,"h":44}
+},
+"Spider_10.png":
+{
+	"frame": {"x":50,"y":386,"w":30,"h":36},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":8,"w":30,"h":36},
+	"sourceSize": {"w":44,"h":44}
+},
+"Spider_11.png":
+{
+	"frame": {"x":2,"y":346,"w":38,"h":44},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":0,"w":38,"h":44},
 	"sourceSize": {"w":44,"h":44}
 },
 "Spider_2.png":
 {
-	"frame": {"x":22,"y":300,"w":38,"h":28},
+	"frame": {"x":42,"y":346,"w":38,"h":28},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":16,"w":38,"h":28},
 	"sourceSize": {"w":44,"h":44}
 },
+"Spider_3.png":
+{
+	"frame": {"x":2,"y":482,"w":42,"h":28},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":16,"w":42,"h":28},
+	"sourceSize": {"w":44,"h":44}
+},
+"Spider_4.png":
+{
+	"frame": {"x":2,"y":438,"w":42,"h":28},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":16,"w":42,"h":28},
+	"sourceSize": {"w":44,"h":44}
+},
+"Spider_5.png":
+{
+	"frame": {"x":2,"y":300,"w":44,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":44},
+	"sourceSize": {"w":44,"h":44}
+},
 "Spider_6.png":
 {
-	"frame": {"x":2,"y":346,"w":42,"h":26},
+	"frame": {"x":22,"y":392,"w":42,"h":26},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":10,"w":42,"h":26},
@@ -114,7 +154,7 @@
 },
 "Spider_7.png":
 {
-	"frame": {"x":2,"y":300,"w":44,"h":18},
+	"frame": {"x":2,"y":392,"w":44,"h":18},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":16,"w":44,"h":18},
@@ -126,6 +166,14 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":44},
+	"sourceSize": {"w":44,"h":44}
+},
+"Spider_9.png":
+{
+	"frame": {"x":46,"y":476,"w":30,"h":36},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":8,"w":30,"h":36},
 	"sourceSize": {"w":44,"h":44}
 },
 "Web.png":
@@ -143,6 +191,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:f5b2ad1bab303c16f3feb297efcd944a:cd97f641d3434e93b728eb674d4a0cda:1061686de59298529f6a4fc7550209ec$"
+	"smartupdate": "$TexturePacker:SmartUpdate:1b23ea098c120654f8a033a3f67feafc:427bd47ba91d50ebccceff17027a9158:1061686de59298529f6a4fc7550209ec$"
 }
 }

@@ -17,8 +17,13 @@ goog.inherits(tagjam13.Spider, lime.Sprite);
 
 tagjam13.Spider.prototype.STOP = new goog.math.Vec2(0, 0);
 tagjam13.Spider.prototype.MAX_SPEED = .5;
+tagjam13.Spider.prototype.FIRST_BUG = true;
 
 tagjam13.Spider.prototype.eatBug = function(bug) {
+    if (tagjam13.Spider.prototype.FIRST_BUG) {
+        this.getParent().setTutorial(tagjam13.tutorial.item());
+        tagjam13.Spider.prototype.FIRST_BUG = false;
+    }
     return bug.eaten();
 };
 
@@ -44,7 +49,7 @@ tagjam13.Spider.prototype.dropItem = function() {
 };
 
 tagjam13.Spider.prototype.shrug = function() {
-    // TODO: animation.
+    this.runAction(tagjam13.resources.getSpiderShrug());
 };
 
 tagjam13.Spider.prototype.getNewPosition = function(delta) {

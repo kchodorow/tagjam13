@@ -1,13 +1,7 @@
 Programming
 -----------
 
-Tutorial
-  * Add bucket directions
-  * Add "Pick up item" message
-  * Add fix web with dragon message
-  * Add beeswax instructions
-
-Add bug swearing
+Add title
 Make bucket fill with water when full
 Make dragon breath fire
 Add game over
@@ -20,6 +14,7 @@ Low importance:
 * Add bugs escaping
 * Start droplets slightly higher than drop points
 * Make droplets roll
+* Add bug swearing
 
 Graphics
 --------

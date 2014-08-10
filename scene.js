@@ -18,15 +18,44 @@ tagjam13.Scene = function(spider) {
             .setFill('#354242').setPosition(WIDTH/2, HEIGHT/2);
     this.appendChild(background);
 
+    this.web_ = new tagjam13.Web();
+    this.web_.setPosition(this.web_.getOffsets());
+    this.appendChild(this.web_);
+
+    var marginLeft = new lime.Sprite()
+            .setFill(tagjam13.resources.getWoodGrain())
+            .setPosition(tagjam13.Scene.LEFT_MARGIN/2, HEIGHT/2)
+            .setSize(64, HEIGHT);
+    var marginRight = new lime.Sprite()
+            .setFill(tagjam13.resources.getWoodGrain())
+            .setPosition(tagjam13.Scene.RIGHT_MARGIN +
+                         tagjam13.Scene.LEFT_MARGIN/2, HEIGHT/2)
+            .setSize(64, HEIGHT);
+    var ceiling = new lime.Sprite()
+            .setFill(tagjam13.resources.getWoodGrain())
+            .setPosition(WIDTH/2, tagjam13.Scene.TOP_OF_SILL/2)
+            .setSize(WIDTH, tagjam13.Scene.TOP_OF_SILL);
+    var sill = new lime.Sprite()
+            .setFill(tagjam13.resources.getWoodGrain())
+            .setPosition(WIDTH/2, tagjam13.Scene.BOTTOM_OF_SILL+
+                         tagjam13.Scene.TOP_OF_SILL/2)
+            .setSize(WIDTH, tagjam13.Scene.TOP_OF_SILL);
+    var bottom = new lime.Sprite()
+            .setFill(tagjam13.resources.getWoodGrain())
+            .setPosition(WIDTH/2, tagjam13.Scene.BOTTOM_OF_WINDOW+
+                         tagjam13.Scene.TOP_OF_SILL/2)
+            .setSize(WIDTH, tagjam13.Scene.TOP_OF_SILL);
+    this.appendChild(ceiling);
+    this.appendChild(sill);
+    this.appendChild(bottom);
+    this.appendChild(marginLeft);
+    this.appendChild(marginRight);
+
     this.spider_ = spider;
     this.bugs_ = [];
     this.droplets_ = [];
     this.dropPoints_ = [];
     this.paused_ = false;
-
-    this.web_ = new tagjam13.Web();
-    this.web_.setPosition(this.web_.getOffsets());
-    this.appendChild(this.web_);
 
     this.items_ = [];
 
@@ -101,6 +130,7 @@ tagjam13.Scene.prototype.useItem = function() {
             if (!this.isTouching_(item, this.spider_)) {
                 continue;
             }
+            item.equip();
             this.removeChild(item);
             this.spider_.setItem(item);
             goog.array.remove(this.items_, item);

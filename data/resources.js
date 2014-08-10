@@ -24,6 +24,17 @@ tagjam13.data.Resources.prototype.getSpiderWalk = function() {
     return spiderWalk;
 };
 
+tagjam13.data.Resources.prototype.getSpiderShrug = function() {
+    var spiderWalk = new lime.animation.KeyframeAnimation()
+        .setDelay(1/4).setLooping(false);
+    spiderWalk.addFrame(this.spriteSheet_.getFrame('Spider_1.png'));
+    spiderWalk.addFrame(this.spriteSheet_.getFrame('Spider_4.png'));
+    spiderWalk.addFrame(this.spriteSheet_.getFrame('Spider_3.png'));
+    spiderWalk.addFrame(this.spriteSheet_.getFrame('Spider_4.png'));
+    spiderWalk.addFrame(this.spriteSheet_.getFrame('Spider_1.png'));
+    return spiderWalk;
+};
+
 tagjam13.data.Resources.prototype.getFly = function() {
     return this.spriteSheet_.getFrame('Spider - Bugs_5.png');
 };
@@ -61,7 +72,7 @@ tagjam13.data.Resources.prototype.getBeeFly = function() {
 };
 
 tagjam13.data.Resources.prototype.getBucket = function() {
-    return this.spriteSheet_.getFrame('Spider - Bugs_7.png');
+    return this.spriteSheet_.getFrame('Spider_9.png');
 };
 
 tagjam13.data.Resources.prototype.getDragon = function() {
@@ -78,4 +89,8 @@ tagjam13.data.Resources.prototype.getDroplet = function() {
 
 tagjam13.data.Resources.prototype.getWeb = function() {
     return this.spriteSheet_.getFrame('Web.png');
+};
+
+tagjam13.data.Resources.prototype.getWoodGrain = function() {
+    return this.spriteSheet_.getFrame('Spider_5.png');
 };

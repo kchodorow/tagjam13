@@ -20,8 +20,7 @@ tagjam13.start = function(){
     tagjam13.resources = new tagjam13.data.Resources();
     tagjam13.tutorial = new tagjam13.data.Tutorial();
 
-    var director = new lime.Director(
-        document.getElementById('game'), WIDTH, HEIGHT);
+    var director = new lime.Director(document.body, WIDTH, HEIGHT);
     var spider = new tagjam13.Spider();
     var scene = new tagjam13.Scene(spider);
 

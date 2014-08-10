@@ -31,6 +31,17 @@ tagjam13.Bucket = function() {
 
 goog.inherits(tagjam13.Bucket, tagjam13.Item);
 
+tagjam13.Bucket.FIRST_BUCKET = true;
+
+tagjam13.Bucket.prototype.equip = function() {
+    if (!tagjam13.Bucket.FIRST_BUCKET) {
+        return;
+    }
+
+    tagjam13.Bucket.FIRST_BUCKET = false;
+    this.getParent().setTutorial(tagjam13.tutorial.bucket());
+};
+
 tagjam13.Wax = function() {
     goog.base(this);
 
@@ -41,6 +52,17 @@ tagjam13.Wax = function() {
 
 goog.inherits(tagjam13.Wax, tagjam13.Item);
 
+tagjam13.Bucket.FIRST_WAX = true;
+
+tagjam13.Wax.prototype.equip = function() {
+    if (!tagjam13.Bucket.FIRST_WAX) {
+        return;
+    }
+
+    tagjam13.Bucket.FIRST_WAX = false;
+    this.getParent().setTutorial(tagjam13.tutorial.wax());
+};
+
 tagjam13.Dragon = function() {
     goog.base(this);
 
@@ -50,3 +72,14 @@ tagjam13.Dragon = function() {
 };
 
 goog.inherits(tagjam13.Dragon, tagjam13.Item);
+
+tagjam13.Bucket.FIRST_DRAGON = true;
+
+tagjam13.Dragon.prototype.equip = function() {
+    if (!tagjam13.Bucket.FIRST_DRAGON) {
+        return;
+    }
+
+    tagjam13.Bucket.FIRST_DRAGON = false;
+    this.getParent().setTutorial(tagjam13.tutorial.dragon());
+};
