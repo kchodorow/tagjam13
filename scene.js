@@ -174,10 +174,41 @@ tagjam13.Scene.prototype.handleSpider_ = function(delta) {
 };
 
 tagjam13.Scene.prototype.adjustPos_ = function(pos) {
+    // Sanity checks.
+    pos.y = Math.max(pos.y, tagjam13.Scene.TOP_OF_SILL);
+    pos.y = Math.min(pos.y, tagjam13.Scene.BOTTOM_OF_WINDOW);
     pos.x = Math.max(pos.x, tagjam13.Scene.LEFT_MARGIN);
     pos.x = Math.min(pos.x, tagjam13.Scene.RIGHT_MARGIN);
-    pos.y = Math.max(pos.y, tagjam13.Scene.BOTTOM_OF_SILL);
-    pos.y = Math.min(pos.y, tagjam13.Scene.BOTTOM_OF_WINDOW);
+
+    // In middle of BOTTOM_OF_SILL, don't let y < BOTTOM_OF_SILL unless
+    // touching edges.
+    // Check if we're on the ceiling.
+    if (Math.abs(pos.y - tagjam13.Scene.TOP_OF_SILL) <
+        tagjam13.Scene.TOUCHING) {
+        if (Math.abs(pos.x - tagjam13.Scene.LEFT_MARGIN) >
+            tagjam13.Scene.TOUCHING &&
+            Math.abs(pos.x - tagjam13.Scene.RIGHT_MARGIN) >
+            tagjam13.Scene.TOUCHING) {
+            // If we're not near the corners, don't let us go down.
+            pos.y = tagjam13.Scene.TOP_OF_SILL;
+        }
+        // Otherwise, let y increase.
+    } else if (pos.y < tagjam13.Scene.BOTTOM_OF_SILL &&
+               pos.y > tagjam13.Scene.TOP_OF_SILL) {
+        // Check if we're on the walls.
+        if (Math.abs(pos.x - tagjam13.Scene.LEFT_MARGIN) <
+            tagjam13.Scene.TOUCHING) {
+            pos.x = tagjam13.Scene.LEFT_MARGIN;
+        } else if (Math.abs(pos.x - tagjam13.Scene.RIGHT_MARGIN) <
+                   tagjam13.Scene.TOUCHING) {
+            pos.x = tagjam13.Scene.RIGHT_MARGIN;
+        } else {
+            // Not on a wall.
+            pos.y = tagjam13.Scene.BOTTOM_OF_SILL;
+        }
+    }
+    // Otherwise, if we're in the web, we're done.
+
     return pos;
 };
 
