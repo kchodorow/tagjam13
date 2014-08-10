@@ -24,8 +24,7 @@ tagjam13.Item.prototype.getId = function() {
 tagjam13.Bucket = function() {
     goog.base(this);
 
-    this.setSize(tagjam13.Item.SIZE, tagjam13.Item.SIZE)
-        .setFill(tagjam13.resources.getBucket());
+    this.setFill(tagjam13.resources.getBucket());
     this.id_ = tagjam13.Item.BUCKET;
 };
 
@@ -45,8 +44,7 @@ tagjam13.Bucket.prototype.equip = function() {
 tagjam13.Wax = function() {
     goog.base(this);
 
-    this.setSize(tagjam13.Item.SIZE, tagjam13.Item.SIZE)
-        .setFill(tagjam13.resources.getWax());
+    this.setFill(tagjam13.resources.getWax());
     this.id_ = tagjam13.Item.WAX;
 };
 
@@ -66,8 +64,7 @@ tagjam13.Wax.prototype.equip = function() {
 tagjam13.Dragon = function() {
     goog.base(this);
 
-    this.setSize(tagjam13.Item.SIZE, tagjam13.Item.SIZE)
-        .setFill(tagjam13.resources.getDragon());
+    this.setFill(tagjam13.resources.getDragon());
     this.id_ = tagjam13.Item.DRAGON;
 };
 
